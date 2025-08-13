@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Schloss Lab Experiment</title>
+    <!-- Load in the jspsych tools, plugins,and layout -->
+    <script src="jsPsych/jspsych.js"></script>
+
+    <script src="jsPsych/jspsych-image-slider-response_InstrMAS.js"></script>
+    <script src="jsPsych/plugin-image-slider-response.js"></script>
+    <script src="jsPsych/plugin-html-slider-response.js"></script>
+    <script src="jsPsych/jspsych-image-slider-responseKM.js"></script>
+    <script src="jsPsych/plugin-html-button-response.js"></script>
+    <script src="jsPsych/plugin-html-keyboard-response.js"></script>
+    <script src="jsPsych/plugin-survey-html-form.js"></script>
+    <script src="jsPsych/plugin-survey-multi-select.js"></script>
+    <script src="jsPsych/plugin-survey-multi-choice.js"></script>
+    <script src="jsPsych/plugin-survey-text.js"></script>
+    <script src="jsPsych/plugin-fullscreen.js"></script>
+    <script src="jsPsych/plugin-preload.js"></script>
+    <!-- <script src="imagePaths.js"></script> -->
+    <script src="exp1_conditions.js"></script>
+    <link href="jsPsych/jspsych.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+    <!--------------------- Here is where the experiment is created ------------------------------------------->
+    <script>
+
+        var jsPsych = initJsPsych({
+            on_finish: function () {
+                jsPsych.data.get().localSave("csv", filename);
+            }
+        }
+        );
+
+        var timeline = [];
+
+        //const sona_id = jsPsych.data.getURLVariable('id');
+        const subject_id = jsPsych.randomization.randomID(10);
+
+        const filename = `${subject_id}.csv`;
+
+        jsPsych.data.addProperties({
+            subject_id: subject_id
+        });
+
+        var test = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<p>Press the spacebar as quickly as you can. </p>',
+            choices: [' ']
+        };
+        timeline.push(test);
+
+        const save_data = {
+            type: jsPsychPipe,
+            action: "save",
+            experiment_id: "QQU4yFsKS6wg",
+            filename: filename,
+            data_string: () => jsPsych.data.get().csv()
+        };
+
+        timeline.push(save_data);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html> 
